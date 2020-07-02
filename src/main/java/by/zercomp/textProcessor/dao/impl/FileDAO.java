@@ -7,8 +7,6 @@ import java.io.*;
 public class FileDAO implements DAO {
 
     private String path;
-    private FileReader freader;
-    private BufferedReader input;
     private StringBuilder sb;
 
     public FileDAO(String path) {
@@ -17,9 +15,8 @@ public class FileDAO implements DAO {
 
     @Override
     public String read() {
-        try {
-            freader = new FileReader(this.path);
-            input = new BufferedReader(freader);
+        //Java 7 - был добавлен try-with-resources для автоматического закрытия потоков
+        try (BufferedReader input = new BufferedReader(new FileReader(this.path))) {
             sb = new StringBuilder();
             String currentLine;
             while ((currentLine = input.readLine()) != null) {
