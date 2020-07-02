@@ -6,6 +6,6 @@ public interface CharReplacer {
 
     String replaceMakeCorrections(String src, char before, char after);
 
-    String replaceWordsBySubStr(String src, String substring);
+    String replaceWordsBySubStr(String src, int length, String substring);
 
 }
