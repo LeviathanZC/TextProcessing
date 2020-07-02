@@ -1,6 +1,6 @@
-package by.zercomp.textProcessor.dao.impl;
+package by.zercomp.processor.dao.impl;
 
-import by.zercomp.textProcessor.dao.DAO;
+import by.zercomp.processor.dao.DAO;
 
 import java.io.*;
 

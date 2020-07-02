@@ -1,4 +1,4 @@
-package by.zercomp.textProcessor.service;
+package by.zercomp.processor.service;
 
 public interface CharRemover {
 

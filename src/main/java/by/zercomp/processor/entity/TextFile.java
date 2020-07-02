@@ -1,4 +1,4 @@
-package by.zercomp.textProcessor.entity;
+package by.zercomp.processor.entity;
 
 public class TextFile {
 
