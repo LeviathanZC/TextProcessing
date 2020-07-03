@@ -58,8 +58,22 @@ public class CharReplacerAsCharSeqImpl implements CharReplacer {
 
 
     @Override
-    public String replaceWordsBySubStr(String src, int length, String substring) {
-        return null;
+    public String replaceWordsBySubStr(String src, int length, String substring) throws InvalidDataException {
+        if (src == null || substring == null) {
+            throw new InvalidDataException("arguments must be not null");
+        }
+        if (length == 0) {
+            return src;
+        }
+        String[] strings = src.split(" ");
+        int total = strings.length;
+        char[][] storage = new char[total][];
+        char[] replacer = substring.toCharArray();
+        int counter = 0;
+        for (String word: strings) {
+            storage[counter++] = (word.length() == length) ? replacer : word.toCharArray();
+        }
+        return convertCharsToString(storage);
     }
 
     private String convertCharsToString(char[][] src) {
@@ -80,7 +94,7 @@ public class CharReplacerAsCharSeqImpl implements CharReplacer {
         String path = "/home/leviathan/Sorting/sample.txt";
         DAO dao = new FileDAO(path);
         CharReplacer cr = new CharReplacerAsCharSeqImpl();
-        System.out.println(cr.replaceMakeCorrections(dao.read(), "Lo", "ХУ"));
+        System.out.println(cr.replaceWordsBySubStr(dao.read(), 5, "ХУЙ"));
     }
 
 }
