@@ -1,8 +1,5 @@
 package by.zercomp.processor.service.impl;
 
-import by.zercomp.processor.dao.DAO;
-import by.zercomp.processor.dao.impl.ConsoleDAO;
-import by.zercomp.processor.dao.impl.FileDAO;
 import by.zercomp.processor.exception.InvalidDataException;
 import by.zercomp.processor.service.CharReplacer;
 import by.zercomp.processor.validator.TextValidator;
@@ -56,7 +53,6 @@ public class CharReplacerAsCharSeqImpl implements CharReplacer {
         return convertCharsToString(storage);
     }
 
-
     @Override
     public String replaceWordsBySubStr(String src, int length, String substring) throws InvalidDataException {
         if (src == null || substring == null) {
@@ -84,17 +80,4 @@ public class CharReplacerAsCharSeqImpl implements CharReplacer {
         }
         return builder.toString();
     }
-
-
-    //test method
-    public static void main(String[] args) throws InvalidDataException {
-        char symbol = 'й';
-        int index = 5;
-        String src = "qweqwer qer qeirgqeirg qeutgr qeugr qeuity qeuir geu tqoue tqouh";
-        String path = "/home/leviathan/Sorting/sample.txt";
-        DAO dao = new FileDAO(path);
-        CharReplacer cr = new CharReplacerAsCharSeqImpl();
-        System.out.println(cr.replaceWordsBySubStr(dao.read(), 5, "ХУЙ"));
-    }
-
 }
