@@ -18,9 +18,9 @@ public class CharReplacerAsCharSeqImpl implements CharReplacer {
         String[] stringArray = src.split(" ");
         char[][] storage = new char[stringArray.length][];
         int counter = 0;
-        for (String item: stringArray) {
+        for (String item : stringArray) {
             storage[counter] = item.toCharArray();
-            if(validator.inRange(item, index)) {
+            if (validator.inRange(item, index)) {
                 storage[counter][index] = symbol;
             }
             counter++;
@@ -33,15 +33,29 @@ public class CharReplacerAsCharSeqImpl implements CharReplacer {
         if (src == null || before == null || after == null) {
             throw new InvalidDataException("arguments must be not null");
         }
-        String[] strings = src.split(" ");
-        char[][] storage = new char[strings.length][];
-        int counter = 0;
-        for (String item: strings) {
-            storage[counter] = item.toCharArray();
-
+        if (before.length() != 2 || after.length() != 2) {
+            throw new InvalidDataException("strings must be 2 chars only");
         }
-        return null;
+        String[] strings = src.split(" ");
+        int total = strings.length;
+        char[][] storage = new char[total][];
+        char[] beforeChar = before.toCharArray();
+        char newChar = after.toCharArray()[1];
+        int counter = 0;
+        int lastIndex;
+        for (String item : strings) {
+            lastIndex = item.length() - 1;
+            char[] word = item.toCharArray();
+            for (int j = 0; j < lastIndex; j++) {
+                if (word[j] == beforeChar[0] && word[j + 1] == beforeChar[1]) {
+                    word[j + 1] = newChar;
+                }
+            }
+            storage[counter++] = word;
+        }
+        return convertCharsToString(storage);
     }
+
 
     @Override
     public String replaceWordsBySubStr(String src, int length, String substring) {
@@ -50,21 +64,23 @@ public class CharReplacerAsCharSeqImpl implements CharReplacer {
 
     private String convertCharsToString(char[][] src) {
         StringBuilder builder = new StringBuilder();
-        for (char[] item: src) {
+        for (char[] item : src) {
             builder.append(item);
             builder.append(" ");
         }
         return builder.toString();
     }
 
+
     //test method
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidDataException {
         char symbol = 'й';
         int index = 5;
         String src = "qweqwer qer qeirgqeirg qeutgr qeugr qeuity qeuir geu tqoue tqouh";
         String path = "/home/leviathan/Sorting/sample.txt";
-        DAO dao = new ConsoleDAO(System.in);
-        System.out.println(dao.read());
+        DAO dao = new FileDAO(path);
+        CharReplacer cr = new CharReplacerAsCharSeqImpl();
+        System.out.println(cr.replaceMakeCorrections(dao.read(), "Lo", "ХУ"));
     }
 
 }
