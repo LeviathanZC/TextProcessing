@@ -2,18 +2,26 @@ package by.zercomp.processor.dao.impl;
 
 import by.zercomp.processor.dao.DAO;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class ConsoleDAO implements DAO {
 
-    private Scanner input;
+    private BufferedReader reader;
 
-    public ConsoleDAO(Scanner scanner) {
-        this.input = scanner;
+    public ConsoleDAO(InputStream stream) {
+        this.reader = new BufferedReader(new InputStreamReader(stream));
     }
 
     @Override
     public String read() {
-        return this.input.next();
+        try {
+            return this.reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

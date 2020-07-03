@@ -1,5 +1,8 @@
 package by.zercomp.processor.service.impl;
 
+import by.zercomp.processor.dao.DAO;
+import by.zercomp.processor.dao.impl.ConsoleDAO;
+import by.zercomp.processor.dao.impl.FileDAO;
 import by.zercomp.processor.exception.InvalidDataException;
 import by.zercomp.processor.service.CharReplacer;
 import by.zercomp.processor.validator.TextValidator;
@@ -59,7 +62,9 @@ public class CharReplacerAsCharSeqImpl implements CharReplacer {
         char symbol = 'й';
         int index = 5;
         String src = "qweqwer qer qeirgqeirg qeutgr qeugr qeuity qeuir geu tqoue tqouh";
-
+        String path = "/home/leviathan/Sorting/sample.txt";
+        DAO dao = new ConsoleDAO(System.in);
+        System.out.println(dao.read());
     }
 
 }
