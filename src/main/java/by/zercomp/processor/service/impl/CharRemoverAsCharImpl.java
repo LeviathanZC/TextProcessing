@@ -1,7 +1,5 @@
 package by.zercomp.processor.service.impl;
 
-import by.zercomp.processor.dao.DAO;
-import by.zercomp.processor.dao.impl.FileDAO;
 import by.zercomp.processor.exception.InvalidDataException;
 import by.zercomp.processor.service.CharRemover;
 
@@ -47,11 +45,5 @@ public class CharRemoverAsCharImpl implements CharRemover {
     @Override
     public String removeWordsByLength(String src, int length, char startsWith) {
         return null;
-    }
-
-    public static void main(String[] args) throws InvalidDataException {
-        DAO dao = new FileDAO("/home/leviathan/Sorting/sample.txt");
-        CharRemover remover = new CharRemoverAsCharImpl();
-        System.out.println(remover.removeNonLetterOrSpaceChars(dao.read()));
     }
 }
